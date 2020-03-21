@@ -16,7 +16,8 @@ export default {
       validator: value => {
         return (
           typeof value['text'] === 'string' &&
-          typeof value['isDone'] === 'boolean'
+          typeof value['isDone'] === 'boolean' &&
+          typeof value['id'] === 'number'
         )
       }
     }

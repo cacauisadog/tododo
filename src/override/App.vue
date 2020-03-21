@@ -1,10 +1,11 @@
 <template>
   <div>
     <h1>tododo</h1>
-    <div v-if="todoList.length > 0" class="margin-bottom">
+    <p v-if="loading">loading :)</p>
+    <div v-else-if="todoList && todoList.length > 0" class="margin-bottom">
       <todo-item
-        v-for="(todo, idx) in todoList"
-        :key="idx"
+        v-for="todo in todoList"
+        :key="todo.id"
         :item="todo"
         @removeTodo="removeTodo($event)"
       />
@@ -15,56 +16,68 @@
       <input type="text" name="todoText" v-model="newTodoText" />
       <button type="submit" @click="addNewTodo()">+</button>
     </form>
+    <p v-if="loadingTodo">todo action loading!</p>
   </div>
 </template>
 
 <script>
+import api from '~api'
 import TodoItem from '@/components/TodoItem.vue'
 
 export default {
   name: 'App',
   components: { TodoItem },
+  created() {
+    api.everyone.getTodos().then(result => {
+      this.todoList = result.todoList
+      this.loading = false
+    })
+  },
   data() {
     return {
-      todoList: [
-        {
-          id: 1,
-          text: 'walk the dog',
-          isDone: true
-        },
-        {
-          id: 2,
-          text: 'go to the market',
-          isDone: true
-        },
-        {
-          id: 3,
-          text: 'study vuejs',
-          isDone: true
-        },
-        {
-          id: 4,
-          text: 'read a book',
-          isDone: false
-        }
-      ],
+      loading: true,
+      loadingTodo: false,
+      todoList: undefined,
       newTodoText: ''
     }
   },
   methods: {
     addNewTodo() {
       if (this.newTodoText === '') return
-
+      this.loadingTodo = true
       const newTodo = {
         text: this.newTodoText,
         isDone: false
       }
-      this.todoList.push(newTodo)
-      this.newTodoText = ''
+      api.everyone
+        .addNewTodo(newTodo)
+        .then(newTodo => {
+          if (newTodo.error) {
+            console.log(newTodo.error)
+          } else {
+            this.todoList.push(newTodo)
+            this.newTodoText = ''
+          }
+        })
+        .finally(() => {
+          this.loadingTodo = false
+        })
     },
-    removeTodo(item) {
-      const itemIndex = this.todoList.indexOf(item)
-      this.todoList.splice(itemIndex, 1)
+    removeTodo(todo) {
+      this.loadingTodo = true
+      api.everyone
+        .removeTodo(todo.id)
+        .then(response => {
+          if (response.error) {
+            console.log(response.error)
+          } else {
+            const todoIndex = this.todoList.indexOf(todo)
+            this.todoList.splice(todoIndex, 1)
+          }
+        })
+        .finally(() => {
+          this.loadingTodo = false
+        })
     }
   }
 }
