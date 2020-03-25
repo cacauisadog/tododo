@@ -1,8 +1,8 @@
-"""user, todolist and todo tables
+"""User, TodoList and Todo models
 
-Revision ID: a6223b636ef7
+Revision ID: 1199324d9af6
 Revises: 
-Create Date: 2020-03-22 13:28:13.139876
+Create Date: 2020-03-24 22:54:34.863423
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a6223b636ef7'
+revision = '1199324d9af6'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=64), nullable=True),
-    sa.Column('email', sa.String(length=120), nullable=True),
+    sa.Column('email', sa.String(length=64), nullable=True),
     sa.Column('password_hash', sa.String(length=128), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),

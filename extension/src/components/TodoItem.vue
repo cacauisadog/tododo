@@ -1,8 +1,16 @@
 <template>
   <div class="flex">
-    <p :class="{ 'text-linethrough': item.isDone }">{{ item.text }}</p>
-    <input class="isDoneCheckbox" type="checkbox" v-model="item.isDone" />
-    <button @click="removeTodo()">R</button>
+    <p :class="{ 'text-linethrough': item.isDone }">
+      {{ item.text }}
+    </p>
+    <input
+      v-model="item.isDone"
+      class="isDoneCheckbox"
+      type="checkbox"
+    >
+    <button @click="removeTodo()">
+      R
+    </button>
   </div>
 </template>
 
@@ -23,7 +31,7 @@ export default {
     }
   },
   methods: {
-    removeTodo() {
+    removeTodo () {
       this.$emit('removeTodo', this.item)
     }
   }

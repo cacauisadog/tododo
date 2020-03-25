@@ -1,8 +1,13 @@
 <template>
   <div>
     <h1>tododo</h1>
-    <p v-if="loading">loading :)</p>
-    <div v-else-if="todoList && todoList.length > 0" class="margin-bottom">
+    <p v-if="loading">
+      loading :)
+    </p>
+    <div
+      v-else-if="todoList && todoList.length > 0"
+      class="margin-bottom"
+    >
       <todo-item
         v-for="todo in todoList"
         :key="todo.id"
@@ -10,30 +15,51 @@
         @removeTodo="removeTodo($event)"
       />
     </div>
-    <p v-else class="margin-bottom">please add a todo</p>
+    <p
+      v-else
+      class="margin-bottom"
+    >
+      please add a todo
+    </p>
 
-    <form @submit.prevent>
-      <input type="text" name="todoText" v-model="newTodoText" />
-      <button type="submit" @click="addNewTodo()">+</button>
+    <form @submit.prevent="addNewTodo()">
+      <input
+        v-model="newTodoText"
+        type="text"
+        name="todoText"
+      >
+      <button type="submit">
+        +
+      </button>
     </form>
-    <p v-if="loadingTodo">todo action loading!</p>
+    <p v-if="loadingTodo">
+      todo action loading!
+    </p>
+
+    <div v-if="!currentUser">
+      <signup-form />
+      <login-form />
+    </div>
+    <account-info v-else />
   </div>
 </template>
 
 <script>
 import api from '~api'
 import TodoItem from '@/components/TodoItem.vue'
+import SignupForm from '@/components/SignupForm.vue'
+import LoginForm from '@/components/LoginForm.vue'
+import AccountInfo from '@/components/AccountInfo.vue'
 
 export default {
   name: 'App',
-  components: { TodoItem },
-  created() {
-    api.everyone.getTodos().then(result => {
-      this.todoList = result.todoList
-      this.loading = false
-    })
+  components: {
+    TodoItem,
+    SignupForm,
+    LoginForm,
+    AccountInfo
   },
-  data() {
+  data () {
     return {
       loading: true,
       loadingTodo: false,
@@ -41,8 +67,19 @@ export default {
       newTodoText: ''
     }
   },
+  computed: {
+    currentUser () {
+      return this.$store.state.currentUser
+    }
+  },
+  beforeCreate () {
+    this.$store.dispatch('whoami')
+  },
+  mounted () {
+    window.api = api
+  },
   methods: {
-    addNewTodo() {
+    addNewTodo () {
       if (this.newTodoText === '') return
       this.loadingTodo = true
       const newTodo = {
@@ -63,7 +100,7 @@ export default {
           this.loadingTodo = false
         })
     },
-    removeTodo(todo) {
+    removeTodo (todo) {
       this.loadingTodo = true
       api.everyone
         .removeTodo(todo.id)

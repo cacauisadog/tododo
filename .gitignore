@@ -86,3 +86,6 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+
+# Docker local files
+dkdata
