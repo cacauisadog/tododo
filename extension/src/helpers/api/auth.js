@@ -2,21 +2,21 @@ import { get, post } from './ajaxutils'
 
 export default {
   whoami () {
-    return get('http://localhost:5000/api/whoami').then(
+    return get('/api/whoami').then(
       response => response.data)
   },
   signup (user) {
-    return post('http://localhost:5000/api/signup', { user: JSON.stringify(user) }).then(
+    return post('/api/signup', { user: JSON.stringify(user) }).then(
       response => response.data
     )
   },
   login (user) {
-    return post('http://localhost:5000/api/login', { user: JSON.stringify(user) }).then(
+    return post('/api/login', { user: JSON.stringify(user) }).then(
       response => response.data
     )
   },
   logout () {
-    return post('http://localhost:5000/api/logout').then(
+    return post('/api/logout').then(
       response => response.data
     )
   }

@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+axios.defaults.headers.common['tabid'] = (Math.random() * 1e8).toFixed(0)
+axios.defaults.baseURL = 'http://localhost:5000'
+
 export function get (url, params) {
   try {
     return axios.get(url, { params: params })
