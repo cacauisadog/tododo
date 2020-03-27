@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "__MSG_extName__",
+  "name": "Tododo",
   "homepage_url": "http://localhost:8080/",
-  "description": "A Vue Browser Extension",
+  "description": "Simple and smarter todo-lists",
   "default_locale": "en",
   "permissions": [
     "<all_urls>",
