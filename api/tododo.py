@@ -7,4 +7,4 @@ def make_shell_context():
 
 
 if __name__ == '__main__':
-    api.run(debug=True, use_debugger=False, use_reloader=False, passthrough_errors=True)
+    api.run(debug=True, use_debugger=False, use_reloader=True, passthrough_errors=True)
