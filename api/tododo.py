@@ -1,4 +1,6 @@
-from app import api, db
+from app import create_app, db
+
+api = create_app()
 
 
 @api.shell_context_processor

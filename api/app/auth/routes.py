@@ -2,12 +2,11 @@ import json
 
 from flask import request, jsonify
 
-from app import api
 from flask_login import current_user
-from app.services import auth_svc
+from app.auth import auth_svc, bp
 
 
-@api.route('/api/whoami', methods=['GET'])
+@bp.route('/api/whoami', methods=['GET'])
 def whoami():
     if current_user.is_authenticated:
         return jsonify(current_user.to_dict_json())
@@ -15,14 +14,14 @@ def whoami():
     return jsonify({'is_authenticated': False})
 
 
-@api.route('/api/signup', methods=['POST'])
+@bp.route('/api/signup', methods=['POST'])
 def signup():
     user = json.loads(request.form.get('user'))
     new_user = auth_svc.signup(user)
     return jsonify(new_user)
 
 
-@api.route('/api/login', methods=['POST'])
+@bp.route('/api/login', methods=['POST'])
 def login():
     if current_user.is_authenticated:
         return jsonify(current_user)
@@ -32,7 +31,7 @@ def login():
     return jsonify(user)
 
 
-@api.route('/api/logout', methods=['POST'])
+@bp.route('/api/logout', methods=['POST'])
 def logout():
     if current_user.is_authenticated:
         auth_svc.logout()
