@@ -1,7 +1,8 @@
 import { mockasync } from './mockutils'
 import { mockuser } from './db_people'
 
-const luffy = mockuser(true)
+const keepLoggedIn = true
+const luffy = mockuser(keepLoggedIn)
 
 export default {
   whoami () {

@@ -1,9 +1,9 @@
 import { mockasync } from './mockutils'
-import { todoList } from './db_todo'
+import { todoLists } from './db_todolists'
 
 export default {
-  getTodos () {
-    return mockasync(todoList).then(response => response.data)
+  getTodoLists () {
+    return mockasync(todoLists).then(response => response.data)
   },
   addNewTodo (newTodo) {
     if (newTodo.text === 'kaboom') {
