@@ -13,6 +13,7 @@ def signup(user_dic):
     new_user.set_password(password)
     db.session.add(new_user)
     db.session.commit()
+    login_user(new_user)
     user = new_user.to_dict_json()
     return user
 
