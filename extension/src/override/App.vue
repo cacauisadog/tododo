@@ -7,7 +7,7 @@
     <div v-else>
       <div
         v-if="todoLists && todoLists.length > 0"
-        class="todolists"
+        class="container"
       >
         <todo-list
           v-for="todoList in todoLists"
@@ -79,10 +79,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-p,
-input {
-  margin: 0;
+<style lang="scss">
+@import "@/assets/css/main.scss";
+
+.container {
+  display: flex;
 }
 
 .todolists {

@@ -1,0 +1,52 @@
+$color-primary: #f23046;
+$color-white: #fff;
+$color-black: #000;
+
+$colours:
+  "primary" $color-primary,
+  "white" $color-white,
+  "black" $color-black;
+
+//Gerando as classes de cores
+@each $i in $colours {
+  //Textos
+  .text-#{nth($i, 1)} {
+    color: nth($i, 2);
+  }
+
+  //Backgrounds
+  .bg-#{nth($i, 1)} {
+    background-color: nth($i, 2);
+  }
+}
+
+/*--------------------
+  font-sizing
+--------------------*/
+$fs-xxs: 12px;
+$fs-xs:  13px;
+$fs-s:   14px;
+$fs-sm:  16px;
+$fs-m:   18px;
+$fs-ml:  22px;
+$fs-l:   26px;
+$fs-xl:  32px;
+$fs-xxl: 48px;
+
+$font-sizes:
+  "xxs" $fs-xxs,
+  "xs" $fs-xs,
+  "s" $fs-s,
+  "sm" $fs-sm,
+  "m" $fs-m,
+  "ml" $fs-ml,
+  "l" $fs-l,
+  "xl" $fs-xl,
+  "xxl" $fs-xxl;
+
+//Gerando as classes de font-size
+@each $i in $font-sizes {
+  .fs-#{nth($i, 1)} {
+    font-size: nth($i, 2);
+  }
+}
