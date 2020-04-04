@@ -1,15 +1,18 @@
 <template>
   <div class="flex">
-    <p :class="{ 'text-linethrough': item.isDone }">
-      {{ item.text }}
-    </p>
     <input
       v-model="item.isDone"
       class="isDoneCheckbox"
       type="checkbox"
     >
-    <button @click="removeTodo()">
-      R
+    <p :class="{ 'text-linethrough': item.isDone }">
+      {{ item.text }}
+    </p>
+    <button
+      class="ml-2"
+      @click="removeTodo()"
+    >
+      [X]
     </button>
   </div>
 </template>
