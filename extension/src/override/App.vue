@@ -4,16 +4,21 @@
     <p v-if="loading">
       loading :)
     </p>
-    <div v-else>
+    <div
+      v-else
+      class="mt-4"
+    >
+      <button @click="addNewTodoList()">
+        <p>New todo list</p>
+      </button>
       <div
         v-if="todoLists && todoLists.length > 0"
-        class="container"
+        class="todolists ma-4"
       >
         <todo-list
           v-for="todoList in todoLists"
           :key="todoList.id"
-          :title="todoList.title"
-          :todos="todoList.todos"
+          :todo-list="todoList"
         />
       </div>
       <hr>
@@ -74,6 +79,15 @@ export default {
           this.todoLists = todoLists
         }
       })
+    },
+    addNewTodoList () {
+      api.everyone.addNewTodoList(this.currentUser.id).then(newTodoList => {
+        if (newTodoList.error) {
+          console.log(newTodoList.error)
+        } else {
+          this.todoLists.push(newTodoList)
+        }
+      })
     }
   }
 }
@@ -82,16 +96,11 @@ export default {
 <style lang="scss">
 @import "@/assets/css/main.scss";
 
-.container {
-  display: flex;
-}
-
 .todolists {
   display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, 300px);
   margin: auto;
   max-width: 100%;
-  padding: 20px;
 }
 </style>

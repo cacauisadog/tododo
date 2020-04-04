@@ -1,10 +1,16 @@
 <template>
-  <div class="card">
-    <h2>{{ title }}</h2>
-    <div
-      v-if="todos && todos.length > 0"
-      class="margin-bottom"
-    >
+  <div class="card pa-3">
+    <h2 class="mb-2">
+      <input
+        id="todolisttitle"
+        ref="titleInput"
+        v-model.lazy="title"
+        style="width: 100%;"
+        type="text"
+        name="title"
+      >
+    </h2>
+    <div v-if="todos && todos.length > 0">
       <todo-item
         v-for="todo in todos"
         :key="todo.id"
@@ -12,11 +18,11 @@
         @removeTodo="removeTodo($event)"
       />
     </div>
-    <p
-      v-else
-      class="margin-bottom"
-    >
+    <p v-else>
       please add a todo
+    </p>
+    <p v-if="loadingTodo">
+      todo action loading!
     </p>
 
     <form @submit.prevent="addNewTodo()">
@@ -29,9 +35,6 @@
         +
       </button>
     </form>
-    <p v-if="loadingTodo">
-      todo action loading!
-    </p>
   </div>
 </template>
 
@@ -45,14 +48,17 @@ export default {
     TodoItem
   },
   props: {
-    title: {
-      type: String,
-      required: true
-    },
-    todos: {
-      type: Array,
-      required: false,
-      default: () => []
+    todoList: {
+      type: Object,
+      required: true,
+      default: () => { },
+      validator: value => {
+        return (
+          typeof value['id'] === 'number' &&
+          typeof value['title'] === 'string' &&
+          Array.isArray(value.todos)
+        )
+      }
     }
   },
   data () {
@@ -61,11 +67,37 @@ export default {
       loadingTodo: false
     }
   },
+  computed: {
+    title: {
+      get () {
+        return this.todoList.title
+      },
+      set (value) {
+        if (!value) {
+          value = 'New todo list'
+        } else {
+          this.editTodoListTitle()
+          this.$refs.titleInput.blur()
+        }
+      }
+    },
+    todos () {
+      return this.todoList.todos
+    }
+  },
   methods: {
+    editTodoListTitle () {
+      api.everyone.editTodoListTitle(this.todoList.id, this.todoList.title).then(response => {
+        if (response.error) {
+          console.log('error saving todo list title', response.error)
+        }
+      })
+    },
     addNewTodo () {
       if (this.newTodoText === '') return
       this.loadingTodo = true
       const newTodo = {
+        todoListId: this.todoList.id,
         text: this.newTodoText,
         isDone: false
       }
@@ -105,7 +137,10 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  border: 1px solid black;
-  padding: 10px;
+  height: 400px;
+  width: 300px;
+  background-color: rgb(242, 248, 222);
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
 </style>
