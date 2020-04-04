@@ -1,0 +1,132 @@
+/*--------------------
+  colors
+--------------------*/
+$color-primary: #f23046;
+$color-white: #fff;
+$color-black: #000;
+
+$colors:
+  "primary" $color-primary,
+  "white" $color-white,
+  "black" $color-black;
+
+/*--------------------
+  font-sizing
+--------------------*/
+$fs-xxs: 1.2rem;
+$fs-xs:  1.3rem;
+$fs-s:   1.4rem;
+$fs-sm:  1.6rem;
+$fs-m:   1.8rem;
+$fs-ml:  2.2rem;
+$fs-l:   2.6rem;
+$fs-xl:  3.2rem;
+$fs-xxl: 4.8rem;
+
+
+$font-sizes:
+  "xxs" $fs-xxs,
+  "xs" $fs-xs,
+  "s" $fs-s,
+  "sm" $fs-sm,
+  "m" $fs-m,
+  "ml" $fs-ml,
+  "l" $fs-l,
+  "xl" $fs-xl,
+  "xxl" $fs-xxl;
+
+
+/*--------------------
+  Generating color classes
+--------------------*/
+@each $i in $colors {
+  //Texts
+  .text-#{nth($i, 1)} {
+    color: nth($i, 2);
+  }
+
+  //Backgrounds
+  .bg-#{nth($i, 1)} {
+    background-color: nth($i, 2);
+  }
+}
+
+
+/*--------------------
+  Generating font-size classes
+--------------------*/
+@each $i in $font-sizes {
+  .fs-#{nth($i, 1)} {
+    font-size: nth($i, 2);
+  }
+}
+
+/*--------------------
+  Spacing values
+--------------------*/
+$spacer: 1.6rem;
+
+$spacings:
+  "auto" auto,
+  "0" 0,
+  "1" $spacer * .25,
+  "2" $spacer * .5,
+  "3" $spacer,
+  "4" $spacer * 1.5,
+  "5" $spacer * 3;
+
+
+/*--------------------
+  Spacing classes
+--------------------*/
+@each $i in $spacings {
+  //margins
+  .ma-#{nth($i, 1)} {
+    margin: nth($i, 2) !important;
+  }
+  .mt-#{nth($i, 1)} {
+    margin-top: nth($i, 2) !important;
+  }
+  .mr-#{nth($i, 1)} {
+    margin-right: nth($i, 2) !important;
+  }
+  .mb-#{nth($i, 1)} {
+    margin-bottom: nth($i, 2) !important;
+  }
+  .ml-#{nth($i, 1)} {
+    margin-left: nth($i, 2) !important;
+  }
+  .mx-#{nth($i, 1)} {
+    margin-left: nth($i, 2) !important;
+    margin-right: nth($i, 2) !important;
+  }
+  .my-#{nth($i, 1)} {
+    margin-top: nth($i, 2) !important;
+    margin-bottom: nth($i, 2) !important;
+  }
+
+  //paddings
+  .pa-#{nth($i, 1)} {
+    padding: nth($i, 2) !important;
+  }
+  .pt-#{nth($i, 1)} {
+    padding-top: nth($i, 2) !important;
+  }
+  .pr-#{nth($i, 1)} {
+    padding-right: nth($i, 2) !important;
+  }
+  .pb-#{nth($i, 1)} {
+    padding-bottom: nth($i, 2) !important;
+  }
+  .pl-#{nth($i, 1)} {
+    padding-left: nth($i, 2) !important;
+  }
+  .px-#{nth($i, 1)} {
+    padding-left: nth($i, 2) !important;
+    padding-right: nth($i, 2) !important;
+  }
+  .py-#{nth($i, 1)} {
+    padding-top: nth($i, 2) !important;
+    padding-bottom: nth($i, 2) !important;
+  }
+}
