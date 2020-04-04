@@ -1,9 +1,14 @@
 <template>
   <div>
-    <h2>Account information</h2>
-    <p>Username: {{ currentUser.username }}</p>
-    <p>Email: {{ currentUser.email }}</p>
+    <h3>Account information</h3>
+    <p class="fs-s">
+      Username: {{ currentUser.username }}
+    </p>
+    <p class="fs-s">
+      Email: {{ currentUser.email }}
+    </p>
     <input
+      class="fs-s"
       type="button"
       value="Logout"
       @click="logout()"
