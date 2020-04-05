@@ -5,7 +5,10 @@
       class="isDoneCheckbox"
       type="checkbox"
     >
-    <p :class="{ 'text-linethrough': item.isDone }">
+    <p
+      :class="{ 'text-linethrough': item.isDone }"
+      class="todo-text fs-m mb-1"
+    >
       {{ item.text }}
     </p>
     <button
@@ -44,6 +47,7 @@ export default {
 <style>
 .flex {
   display: flex;
+  align-items: center;
 }
 
 .isDoneCheckbox {
@@ -54,5 +58,10 @@ export default {
 
 .text-linethrough {
   text-decoration: line-through;
+}
+
+.todo-text {
+  font-family: "Comic Neue", cursive;
+  font-weight: 300;
 }
 </style>

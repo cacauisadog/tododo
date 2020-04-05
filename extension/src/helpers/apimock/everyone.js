@@ -6,7 +6,7 @@ export default {
     return mockasync(todoLists).then(response => response.data)
   },
   editTodoListTitle (todoListId, title) {
-    return mockasync({}).then(response => response.data)
+    return mockasync(title).then(response => response.data)
   },
   addNewTodoList (user_id) {
     const newTodoList = {

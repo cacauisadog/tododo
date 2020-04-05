@@ -10,7 +10,10 @@
         name="title"
       >
     </h2>
-    <div v-if="todos && todos.length > 0">
+    <div
+      v-if="todos && todos.length > 0"
+      class="todos"
+    >
       <todo-item
         v-for="todo in todos"
         :key="todo.id"
@@ -18,20 +21,30 @@
         @removeTodo="removeTodo($event)"
       />
     </div>
-    <p v-else>
+    <p
+      v-else
+      class="text-inactive"
+      style="font-style: italic;"
+    >
       please add a todo
     </p>
     <p v-if="loadingTodo">
       todo action loading!
     </p>
-
-    <form @submit.prevent="addNewTodo()">
+    <form
+      class="flex mt-auto"
+      @submit.prevent="addNewTodo()"
+    >
       <input
         v-model="newTodoText"
         type="text"
         name="todoText"
+        class="input-text pl-1"
       >
-      <button type="submit">
+      <button
+        type="submit"
+        class="button button_round ml-1"
+      >
         +
       </button>
     </form>
@@ -75,10 +88,9 @@ export default {
       set (value) {
         if (!value) {
           value = 'New todo list'
-        } else {
-          this.editTodoListTitle()
-          this.$refs.titleInput.blur()
         }
+        this.editTodoListTitle(value)
+        this.$refs.titleInput.blur()
       }
     },
     todos () {
@@ -86,10 +98,12 @@ export default {
     }
   },
   methods: {
-    editTodoListTitle () {
-      api.everyone.editTodoListTitle(this.todoList.id, this.todoList.title).then(response => {
-        if (response.error) {
+    editTodoListTitle (title) {
+      api.everyone.editTodoListTitle(this.todoList.id, title).then(todoListTitle => {
+        if (todoListTitle.error) {
           console.log('error saving todo list title', response.error)
+        } else {
+          this.todoList.title = todoListTitle
         }
       })
     },
@@ -137,10 +151,17 @@ export default {
 
 <style lang="scss" scoped>
 .card {
+  display: flex;
+  flex-direction: column;
   height: 400px;
   width: 300px;
   background-color: rgb(242, 248, 222);
   box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1),
     0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.todos {
+  max-height: 270px;
+  overflow-y: auto;
 }
 </style>

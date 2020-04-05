@@ -8,7 +8,10 @@
       v-else
       class="mt-4"
     >
-      <button @click="addNewTodoList()">
+      <button
+        class="button"
+        @click="addNewTodoList()"
+      >
         <p>New todo list</p>
       </button>
       <div

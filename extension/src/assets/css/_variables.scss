@@ -4,11 +4,13 @@
 $color-primary: #f23046;
 $color-white: #fff;
 $color-black: #000;
+$color-inactive: #888;
 
 $colors:
   "primary" $color-primary,
   "white" $color-white,
-  "black" $color-black;
+  "black" $color-black,
+  "inactive" $color-inactive;
 
 /*--------------------
   font-sizing
