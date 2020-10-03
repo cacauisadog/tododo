@@ -36,9 +36,9 @@ export default {
       required: true,
       validator: value => {
         return (
+          !!value['id'].match(/^[a-zA-Z0-9]*$/) &&
           typeof value['text'] === 'string' &&
-          typeof value['isDone'] === 'boolean' &&
-          typeof value['id'] === 'number'
+          typeof value['isDone'] === 'boolean'
         )
       }
     }

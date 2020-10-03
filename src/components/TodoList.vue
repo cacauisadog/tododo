@@ -69,9 +69,9 @@ export default {
       default: () => { },
       validator: value => {
         return (
-          !!value['id'].match(/^[0-9a-z]+$/) &&
+          !!value['id'].match(/^[a-zA-Z0-9]*$/) &&
           typeof value['title'] === 'string' &&
-          Array.isArray(value.todos)
+          Array.isArray(value['todos'])
         )
       }
     }
