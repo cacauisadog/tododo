@@ -10,7 +10,7 @@
       </button>
       <div
         v-if="todoLists && todoLists.length > 0"
-        class="todolists ma-4"
+        class="todolists ma-2"
       >
         <TodoList
           v-for="todoList in todoLists"
@@ -71,10 +71,7 @@ export default {
 @import "@/assets/css/main.scss";
 
 .todolists {
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(auto-fit, 300px);
-  margin: auto;
-  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

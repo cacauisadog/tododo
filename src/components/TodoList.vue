@@ -1,5 +1,5 @@
 <template>
-  <div class="card pa-3">
+  <div class="card pa-3 ma-2">
     <span
       class="fs-xs text-primary clickable"
       @click="$emit('remove-todo-list', todoList)"
@@ -124,8 +124,8 @@ export default {
 .card {
   display: flex;
   flex-direction: column;
-  height: 400px;
-  width: 300px;
+  height: 450px;
+  width: 450px;
   background-color: rgb(242, 248, 222);
   box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1),
     0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
