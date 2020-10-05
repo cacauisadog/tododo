@@ -2,7 +2,8 @@
   <div class="flex align-center">
     <input
       v-model="isDone"
-      class="isDoneCheckbox"
+      class="isDoneCheckbox mr-2"
+      style="width: 17px; height: 17px;"
       type="checkbox"
     >
     <input
@@ -12,10 +13,9 @@
       style="width: 100%; outline: none;"
       type="text"
       name="todotext"
-      :class="{ 'text-linethrough': item.isDone }"
+      :class="{ 'text-linethrough': item.isDone && textDisabled }"
       class="todo-text fs-m mb-1"
       :readonly="textDisabled"
-      @click="item.isDone = !item.isDone"
       @dblclick="textDisabled = false"
     >
     <button
@@ -57,6 +57,7 @@ export default {
         this.item.text = value
         this.$emit('save-tododo')
         this.$refs.textInput.blur()
+        this.textDisabled = true
       }
     },
     isDone: {
