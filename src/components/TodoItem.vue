@@ -54,8 +54,11 @@ export default {
         return this.item.text
       },
       set (value) {
-        this.item.text = value
-        this.$emit('save-tododo')
+        const item = {
+          id: this.item.id,
+          text: value
+        }
+        this.$emit('save-text', item)
         this.$refs.textInput.blur()
         this.textDisabled = true
       }
@@ -65,8 +68,11 @@ export default {
         return this.item.isDone
       },
       set (value) {
-        this.item.isDone = value
-        this.$emit('save-tododo')
+        const item = {
+          id: this.item.id,
+          isDone: value
+        }
+        this.$emit('save-isdone', item)
       }
     }
   }

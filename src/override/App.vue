@@ -16,8 +16,10 @@
           v-for="todoList in todoLists"
           :key="todoList.id"
           :todo-list="todoList"
-          @save-tododo="saveTododo()"
-          @remove-todo-list="removeTodoList($event)"
+          @save-tododo="saveTododo"
+          @save-list-title="saveListTitle"
+          @remove-todo-list="removeTodoList"
+          @add-new-todo="addNewTodo"
         />
       </div>
     </div>
@@ -58,6 +60,16 @@ export default {
     removeTodoList (todoList) {
       const index = this.todoLists.indexOf(todoList)
       this.todoLists.splice(index, 1)
+      this.saveTododo()
+    },
+    saveListTitle (todoList) {
+      let list = this.todoLists.find(t => t.id === todoList.id)
+      list.title = todoList.title
+      this.saveTododo()
+    },
+    addNewTodo (todoList) {
+      let list = this.todoLists.find(t => t.id === todoList.id)
+      list.todos.push(todoList.newTodo)
       this.saveTododo()
     },
     saveTododo () {

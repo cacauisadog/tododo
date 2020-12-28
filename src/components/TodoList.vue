@@ -22,8 +22,9 @@
         v-for="todo in todos"
         :key="todo.id"
         :item="todo"
-        @remove-todo="removeTodo($event)"
-        @save-tododo="$emit('save-tododo')"
+        @remove-todo="removeTodo"
+        @save-text="saveText"
+        @save-isdone="saveIsDone"
       />
     </div>
     <p
@@ -90,8 +91,11 @@ export default {
         if (!value) {
           value = 'New todo list'
         }
-        this.todoList.title = value
-        this.$emit('save-tododo')
+        const list = {
+          id: this.todoList.id,
+          title: value
+        }
+        this.$emit('save-list-title', list)
         this.$refs.titleInput.blur()
       }
     },
@@ -100,6 +104,16 @@ export default {
     }
   },
   methods: {
+    saveText (item) {
+      let currentItem = this.todos.find(t => t.id === item.id)
+      currentItem.text = item.text
+      this.$emit('save-tododo')
+    },
+    saveIsDone (item) {
+      let currentItem = this.todos.find(t => t.id === item.id)
+      currentItem.isDone = item.isDone
+      this.$emit('save-tododo')
+    },
     addNewTodo () {
       if (this.newTodoText === '') return
       const newTodo = {
@@ -107,8 +121,11 @@ export default {
         text: this.newTodoText,
         isDone: false
       }
-      this.todoList.todos.push(newTodo)
-      this.$emit('save-tododo')
+      const list = {
+        id: this.todoList.id,
+        newTodo
+      }
+      this.$emit('add-new-todo', list)
       this.newTodoText = ''
     },
     removeTodo (todo) {
