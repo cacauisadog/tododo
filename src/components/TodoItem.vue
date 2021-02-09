@@ -10,15 +10,15 @@
         'line-through': item.isDone,
         'text-gray-500': item.isDone
       }"
-      class="text-base mb-3 overflow-auto resize-none w-full break-all"
+      class="text-base mb-3 overflow-auto resize-none w-full break-words"
     >
       {{ item.text }}
     </p>
     <button
-      class="ml-2 h-5 w-5 text-red-600"
+      class="ml-2 h-5 w-5"
       @click="$emit('remove-todo', item)"
     >
-      [X]
+      &#9940;
     </button>
   </div>
 </template>
