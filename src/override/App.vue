@@ -1,16 +1,18 @@
 <template>
   <div>
-    <h1>tododo</h1>
-    <div class="mt-4">
+    <h1 class="ml-2">
+      tododo
+    </h1>
+    <div class="mt-2">
       <button
-        class="button"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-full ml-2"
         @click="newTodoList()"
       >
         <p>New todo list</p>
       </button>
       <div
         v-if="todoLists && todoLists.length > 0"
-        class="todolists ma-2"
+        class="flex flex-wrap"
       >
         <TodoList
           v-for="todoList in todoLists"
@@ -78,12 +80,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-@import "@/assets/css/main.scss";
-
-.todolists {
-  display: flex;
-  flex-wrap: wrap;
-}
-</style>

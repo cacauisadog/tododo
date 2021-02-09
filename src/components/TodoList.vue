@@ -1,7 +1,7 @@
 <template>
-  <div class="card pa-3 ma-2">
+  <div class="card p-3 m-2">
     <span
-      class="fs-xs text-primary clickable"
+      class="text-base text-red-600 cursor-pointer mb-2"
       @click="$emit('remove-todo-list', todoList)"
     >Delete list</span>
     <h2 class="mb-2">
@@ -9,9 +9,9 @@
         id="todolisttitle"
         ref="titleInput"
         v-model.lazy="title"
-        style="width: 100%;"
         type="text"
         name="title"
+        class="text-xl w-full font-bold"
       >
     </h2>
     <div
@@ -29,8 +29,7 @@
     </div>
     <p
       v-else
-      class="text-inactive"
-      style="font-style: italic;"
+      class="text-gray-500 italic"
     >
       please add a todo
     </p>
@@ -42,11 +41,11 @@
         v-model="newTodoText"
         type="text"
         name="todoText"
-        class="input-text pl-1"
+        class="w-full border-2 border-solid border-black rounded-md focus:outline-none text-base"
       >
       <button
         type="submit"
-        class="button button_round ml-1"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded-full ml-1"
       >
         +
       </button>
@@ -137,19 +136,21 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .card {
   display: flex;
   flex-direction: column;
   height: 450px;
   width: 450px;
-  background-color: rgb(242, 248, 222);
-  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1),
-    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  @apply bg-yellow-200;
 }
 
 .todos {
   max-height: 270px;
   overflow-y: auto;
 }
+
+.todos::-webkit-scrollbar {
+   display: none;
+ }
 </style>

@@ -1,25 +1,21 @@
 <template>
-  <div class="flex align-center">
+  <div class="flex">
     <input
       v-model="isDone"
-      class="isDoneCheckbox mr-2"
-      style="width: 17px; height: 17px;"
+      class="isDoneCheckbox mr-1 h-5 w-5"
       type="checkbox"
     >
-    <input
-      id="todotext"
-      ref="textInput"
-      v-model.lazy="todoText"
-      style="width: 100%; outline: none;"
-      type="text"
-      name="todotext"
-      :class="{ 'text-linethrough': item.isDone && textDisabled }"
-      class="todo-text fs-m mb-1"
-      :readonly="textDisabled"
-      @dblclick="textDisabled = false"
+    <p
+      :class="{
+        'line-through': item.isDone,
+        'text-gray-500': item.isDone
+      }"
+      class="text-base mb-3 overflow-auto resize-none w-full break-all"
     >
+      {{ item.text }}
+    </p>
     <button
-      class="ml-2"
+      class="ml-2 h-5 w-5 text-red-600"
       @click="$emit('remove-todo', item)"
     >
       [X]
@@ -28,6 +24,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'TodoItem',
   props: {
@@ -43,26 +40,7 @@ export default {
       }
     }
   },
-  data () {
-    return {
-      textDisabled: true
-    }
-  },
   computed: {
-    todoText: {
-      get () {
-        return this.item.text
-      },
-      set (value) {
-        const item = {
-          id: this.item.id,
-          text: value
-        }
-        this.$emit('save-text', item)
-        this.$refs.textInput.blur()
-        this.textDisabled = true
-      }
-    },
     isDone: {
       get () {
         return this.item.isDone
@@ -78,25 +56,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.flex {
-  display: flex;
-  align-items: center;
-}
-
-.isDoneCheckbox {
-  margin-left: 8px;
-  margin-top: 2px;
-  margin-right: 2px;
-}
-
-.text-linethrough {
-  text-decoration: line-through;
-}
-
-.todo-text {
-  font-family: "Comic Neue", cursive;
-  font-weight: 300;
-}
-</style>
