@@ -3,7 +3,7 @@
     <h1 class="ml-2">
       tododo
     </h1>
-    <div class="mt-2">
+    <div class="mt-6">
       <button
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-full ml-2"
         @click="newTodoList()"

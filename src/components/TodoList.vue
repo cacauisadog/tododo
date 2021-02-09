@@ -1,55 +1,59 @@
 <template>
-  <div class="card p-3 m-2">
-    <span
-      class="text-base text-red-600 cursor-pointer mb-2"
-      @click="$emit('remove-todo-list', todoList)"
-    >Delete list</span>
-    <h2 class="mb-2">
-      <input
-        id="todolisttitle"
-        ref="titleInput"
-        v-model.lazy="title"
-        type="text"
-        name="title"
-        class="text-xl w-full font-bold"
+  <div class="relative flex flex-col bg-yellow-200 shadow-lg m-4">
+    <div class="px-3 pt-3 h-96 w-80">
+      <span
+        class="text-base text-red-600 cursor-pointer mb-2"
+        @click="$emit('remove-todo-list', todoList)"
+      >Delete list</span>
+      <h2 class="mb-2">
+        <input
+          id="todolisttitle"
+          ref="titleInput"
+          v-model.lazy="title"
+          type="text"
+          name="title"
+          class="text-xl w-full font-bold"
+        >
+      </h2>
+      <div
+        v-if="todos && todos.length > 0"
+        class="hide-scrollbar max-h-72 overflow-y-auto"
       >
-    </h2>
-    <div
-      v-if="todos && todos.length > 0"
-      class="todos"
-    >
-      <TodoItem
-        v-for="todo in todos"
-        :key="todo.id"
-        :item="todo"
-        @remove-todo="removeTodo"
-        @save-text="saveText"
-        @save-isdone="saveIsDone"
-      />
+        <TodoItem
+          v-for="todo in todos"
+          :key="todo.id"
+          :item="todo"
+          @remove-todo="removeTodo"
+          @save-text="saveText"
+          @save-isdone="saveIsDone"
+        />
+      </div>
+      <p
+        v-else
+        class="text-gray-500 italic"
+      >
+        please add a todo
+      </p>
     </div>
-    <p
-      v-else
-      class="text-gray-500 italic"
-    >
-      please add a todo
-    </p>
-    <form
-      class="flex mt-auto"
-      @submit.prevent="addNewTodo()"
-    >
-      <input
-        v-model="newTodoText"
-        type="text"
-        name="todoText"
-        class="w-full border-2 border-solid border-black rounded-md focus:outline-none text-base"
+    <div class="bg-yellow-400 h-12 w-80 px-4 pt-2">
+      <form
+        class="flex"
+        @submit.prevent="addNewTodo()"
       >
-      <button
-        type="submit"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded-full ml-1"
-      >
-        +
-      </button>
-    </form>
+        <input
+          v-model="newTodoText"
+          type="text"
+          name="todoText"
+          class="w-full border-2 border-solid border-yellow-100 rounded-md text-base"
+        >
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 rounded-full ml-4"
+        >
+          +
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -136,21 +140,8 @@ export default {
 }
 </script>
 
-<style lang="postcss" scoped>
-.card {
-  display: flex;
-  flex-direction: column;
-  height: 450px;
-  width: 450px;
-  @apply bg-yellow-200;
-}
-
-.todos {
-  max-height: 270px;
-  overflow-y: auto;
-}
-
-.todos::-webkit-scrollbar {
+<style scoped>
+.hide-scrollbar::-webkit-scrollbar {
    display: none;
  }
 </style>
